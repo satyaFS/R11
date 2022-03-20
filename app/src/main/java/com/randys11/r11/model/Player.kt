@@ -9,7 +9,8 @@ data class Player constructor(
     private var _type: String? = "",
     private var _isPlayerLocked: Boolean? = false,
     private var _isCvcLocked: Boolean? = false,
-    private var _isCaptain:Boolean? = false
+    private var _isCaptain:Boolean? = false,
+    private var _isViceCaptain:Boolean? = false
 ) {
     val name get() = _name!!
     val team get() = _team!!
@@ -20,7 +21,7 @@ data class Player constructor(
     val isPlayerLocked get() = _isPlayerLocked!!
     val isCvcLocked get() = _isCvcLocked!!
     val isCaptain get() = _isCaptain!!
-
+    val isViceCaptain get() = _isViceCaptain!!
 
 
 
@@ -62,11 +63,8 @@ data class Player constructor(
         val arListFixed = arList.filter { it.isPlayerLocked }.count()
         print(bowListFixed)
 
-//        var teamOneCount = Random.nextInt(4, 8)
-//        var teamTwoCount = 11 - teamOneCount
-        //To add locked players first
+
         val finalTeam = mutableListOf<Player>()
-        //finalTeam.addAll(list.filter { it.isPlayerLocked })
 
 
         var teamCombinationList = possiblePlayer.filter {
@@ -76,8 +74,8 @@ data class Player constructor(
 
 
         var duplicateTeams = 0
-        var teamCount = 2
-//        var validTeam = false
+        var teamCount = 0
+
         var totalTeams: MutableList<List<Player>> = mutableListOf<List<Player>>()
         while (totalTeams.count() < noOfTeams && duplicateTeams < 30) {
             val selectedCombination = teamCombinationList.random()
@@ -110,6 +108,13 @@ data class Player constructor(
             else{
                 val cap = finalTeamDeepCopy.randomOrNull()
                 if(cap != null) cap._isCaptain = true
+            }
+            //Select a vice Cap
+            val lockedViceCap = finalTeamDeepCopy.filter { it.isCvcLocked && !it.isCaptain }.randomOrNull()
+            if (lockedViceCap != null) lockedViceCap._isViceCaptain = true
+            else{
+                val cap = finalTeamDeepCopy.filter { !it.isCaptain }.randomOrNull()
+                if(cap != null) cap._isViceCaptain = true
             }
 
             //print(finalTeam.filter { it.type == "BOWL" })
@@ -153,8 +158,6 @@ data class Player constructor(
 
     fun lockCvc(truth: Boolean) {
         this._isCvcLocked = truth
-//        if (truth)
-//            this._isPlayerLocked = truth
     }
 
 

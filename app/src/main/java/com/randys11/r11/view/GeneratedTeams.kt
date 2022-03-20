@@ -62,10 +62,14 @@ fun GeneratedTeams(generatedTeams:List<Player>, match:Match){
 
                                 )
                                 Text(
-                                    text = team.name + "\r",
+                                    text = when {
+                                        team.isCaptain -> {team.name + " ( C )"}
+                                        team.isViceCaptain -> {team.name +" ( Vc )"}
+                                        else -> team.name
+                                    },
                                     color =
-                                    if(team.isCaptain){
-                                        Color.Green
+                                    if(team.isCaptain || team.isViceCaptain){
+                                        Color.Yellow
                                     }else  Color.White,
                                     fontWeight = FontWeight.Bold
                                     //modifier = Modifier.padding(end = 20.dp),
@@ -102,11 +106,16 @@ fun GeneratedTeams(generatedTeams:List<Player>, match:Match){
 
                                 )
                                 Text(
-                                    text = team.name + "\r",
+                                    text = when {
+                                        team.isCaptain -> {team.name + " ( C )"}
+                                        team.isViceCaptain -> {team.name +" ( Vc )"}
+                                        else -> team.name
+                                    },
                                     color =
-                                    if(team.isCaptain){
-                                        Color.Green
+                                    if(team.isCaptain || team.isViceCaptain){
+                                        Color.Yellow
                                     }else  Color.White,
+
                                     fontWeight = FontWeight.Bold
 
                                     //modifier = Modifier.padding(end = 20.dp),
@@ -141,10 +150,14 @@ fun GeneratedTeams(generatedTeams:List<Player>, match:Match){
 
                                 )
                                 Text(
-                                    text = team.name + "\r",
+                                    text = when {
+                                        team.isCaptain -> {team.name + " ( C )"}
+                                        team.isViceCaptain -> {team.name +" ( Vc )"}
+                                        else -> team.name
+                                    },
                                     color =
-                                    if(team.isCaptain){
-                                        Color.Green
+                                    if(team.isCaptain || team.isViceCaptain){
+                                        Color.Yellow
                                     }else  Color.White,
                                     fontWeight = FontWeight.Bold
                                     //modifier = Modifier.padding(end = 20.dp),
@@ -179,10 +192,14 @@ fun GeneratedTeams(generatedTeams:List<Player>, match:Match){
 
                                 )
                                 Text(
-                                    text = team.name + "\r",
+                                    text = when {
+                                        team.isCaptain -> {team.name + " ( C )"}
+                                        team.isViceCaptain -> {team.name +" ( Vc )"}
+                                        else -> team.name
+                                    },
                                     color =
-                                    if(team.isCaptain){
-                                        Color.Green
+                                    if(team.isCaptain || team.isViceCaptain){
+                                        Color.Yellow
                                     }else  Color.White,
                                     fontWeight = FontWeight.Bold
                                     //modifier = Modifier.padding(end = 20.dp),
