@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.randys11.r11.model.DataSource
 import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
@@ -17,7 +18,7 @@ class PlayerViewModel:ViewModel() {
     var removedPlayers = mutableStateListOf<Player>()
     var list = mutableStateListOf<Match>()
     var loading = mutableStateOf(false)
-    var noOfTeams = 1
+    var noOfTeams = 50
 
         private set
 
@@ -79,7 +80,11 @@ class PlayerViewModel:ViewModel() {
     }
 
     fun generateTeams(list:List<Player>, noOfTeams:Int){
-        _generatedTeams = Player().random11(list, noOfTeams)
+        viewModelScope.launch {
+            loading.value = true
+                _generatedTeams = Player().random11(list, noOfTeams)
+            loading.value = false
+        }
     }
 
     fun LockPlayer( player: Player, truth:Boolean){

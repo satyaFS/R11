@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -20,6 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -114,7 +116,8 @@ fun playerCard(
                         text = player.name,
                         style = MaterialTheme.typography.body1,
                         modifier = Modifier
-                            .weight(0.5f).padding(start = 4.dp)
+                            .weight(0.5f)
+                            .padding(start = 4.dp)
                         // .background(Color.Red)
 
                     )
@@ -124,8 +127,8 @@ fun playerCard(
                         style = MaterialTheme.typography.body2,
                         modifier = Modifier
                             .weight(0.25f)
-                        // .background(Color.Yellow)
-                         .padding(start = 1.dp)
+                            // .background(Color.Yellow)
+                            .padding(start = 1.dp)
                         , textAlign = TextAlign.Start
                     )
                     Text(
@@ -313,7 +316,8 @@ fun RemovedPlayerCard(
                         text = player.name,
                         style = MaterialTheme.typography.body1,
                         modifier = Modifier
-                            .weight(0.5f).padding(start = 4.dp)
+                            .weight(0.5f)
+                            .padding(start = 4.dp)
                         // .background(Color.Red)
 
                     )
@@ -323,7 +327,7 @@ fun RemovedPlayerCard(
                         style = MaterialTheme.typography.body2,
                         modifier = Modifier
                             .weight(0.25f)
-                        // .background(Color.Yellow)
+                            // .background(Color.Yellow)
                             .padding(start = 1.dp)
                         , textAlign = TextAlign.Start
                     )
@@ -432,7 +436,7 @@ fun myLazyList(
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
                     .weight(0.5f)
-                    .padding(start=4.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
+                    .padding(start = 4.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Start
             )
@@ -494,7 +498,7 @@ fun RemovePlayersLazyList(
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
                     .weight(0.5f)
-                    .padding(start=4.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
+                    .padding(start = 4.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Start
             )
@@ -581,7 +585,7 @@ fun LazyListWithNav(
             Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(color = Color.White)
+                //.background(color = Color.White)
                 //.padding(bottom = 4.dp)
             ,verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
@@ -595,7 +599,8 @@ fun LazyListWithNav(
                     }
                 },
                 modifier = Modifier
-                    .weight(0.5f).fillMaxHeight()
+                    .weight(0.5f)
+                    .fillMaxHeight().border(1.dp, Color.White)
                 //.align(Alignment.CenterHorizontally),
 
             ) {
@@ -607,22 +612,32 @@ fun LazyListWithNav(
 
             }
             Row( verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.weight(0.25f).fillMaxHeight().background(Color(0xFF9eadfa))
+              //  horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .weight(0.3f)
+                    .fillMaxHeight()
+                    .background(Color(0xFF6e7ef6)).border(1.dp, Color.White)
             ){
                 IconButton(onClick = {
-                    numberValue = (numberValue - 1)
-                }) {
+                    numberValue = if ((numberValue - 1) > 1) numberValue-1 else 1
+                } ,  modifier = Modifier.weight(0.25f)
+                ) {
                     Icon(
                         imageVector = Icons.Rounded.KeyboardArrowDown,
                         tint = Color.White,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
 
-                Text( "$numberValue", color = Color.White, fontWeight = FontWeight.Bold)
+                Text(
+                    "$numberValue",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold ,modifier = Modifier.weight(0.5f)
+                   , textAlign = TextAlign.Center
+                )
 
-                IconButton(onClick = { numberValue = (numberValue + 1) }) {
+                IconButton(onClick = { numberValue = if ((numberValue + 1) <1000 ) numberValue+1 else 1000 },
+                    modifier = Modifier.weight(0.25f)) {
                     Icon(
                         imageVector = Icons.Rounded.KeyboardArrowUp,
                         tint = Color.White,
@@ -630,16 +645,18 @@ fun LazyListWithNav(
                     )
                 }
             }
-            Column(Modifier.
-            background(Color(0xFF9eadfa))
-                .fillMaxHeight()
-                 .weight(0.25f)
+            Column(
+                Modifier
+                    .fillMaxHeight()
+                    .weight(0.2f).border(1.dp, Color.White)
 
 
             ) {
                 Button(
-                    onClick = { numberValue = (numberValue + 50) },
-                    modifier = Modifier.weight(0.5f).fillMaxWidth(), contentPadding = PaddingValues(0.dp)
+                    onClick = { numberValue = if ((numberValue + 50) <1000 ) numberValue+50 else 1000 },
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .fillMaxWidth(), contentPadding = PaddingValues(0.dp)
                 ) {
                     Text(
                         text = "+ 50",
@@ -648,10 +665,12 @@ fun LazyListWithNav(
                         fontSize = 12.sp
                     )
                 }
-                Spacer(modifier = Modifier.padding(2.dp))
+              Spacer(modifier = Modifier.padding(1.dp))
                 Button(
-                    onClick = { numberValue = (numberValue - 50) },
-                    modifier = Modifier.weight(0.5f).fillMaxWidth(), contentPadding = PaddingValues(0.dp)
+                    onClick = { numberValue = if ((numberValue - 50) > 1 ) numberValue-50 else 1 },
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .fillMaxWidth(), contentPadding = PaddingValues(0.dp)
                 ) {
                     Text(text = "- 50", style = MaterialTheme.typography.caption,fontSize = 12.sp, fontWeight = FontWeight.ExtraBold)
                 }
