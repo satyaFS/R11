@@ -19,6 +19,8 @@ class PlayerViewModel:ViewModel() {
     var removedPlayers = mutableStateListOf<Player>()
     var list = mutableStateListOf<Match>()
     var loading = mutableStateOf(false)
+    var initiaLloading = mutableStateOf(false)
+
     var noOfTeams = 50
 
         private set
@@ -27,11 +29,11 @@ class PlayerViewModel:ViewModel() {
         // selectedPlayers.addAll(Player().loadPlayers())
 
         viewModelScope.launch {
-            loading.value = true
+            initiaLloading.value = true
 //            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 //            format.parse(it.startTime)?.time
             list.addAll(DataSource().loadMatches().sortedBy { it.startTime})
-            loading.value = false
+            initiaLloading.value = false
         }
 
 

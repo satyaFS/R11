@@ -161,7 +161,7 @@ fun LazyMatches(matches:List<Match>, navController: NavController, loadPlayers: 
     LazyColumn(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()
-        ,contentPadding = PaddingValues(5.dp)
+        ,contentPadding = PaddingValues(6.dp)
     ){
         items(matches){match->
             MatchCard(match, navController, loadPlayers )

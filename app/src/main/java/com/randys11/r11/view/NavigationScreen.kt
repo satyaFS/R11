@@ -26,7 +26,7 @@ import com.randys11.r11.PlayerViewModel
 fun Navigation(viewModel: PlayerViewModel, navController: NavHostController){
     NavHost(navController = navController, startDestination = Screen.ListOfMatches.route){
         composable(route = Screen.Players.route){
-            if(viewModel.loading.value){
+            if(viewModel.initiaLloading.value){
                 Box(modifier = Modifier.fillMaxSize()){
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
                 }
