@@ -28,6 +28,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -98,7 +99,7 @@ fun playerCard(
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(0.6f)
+                    .weight(0.35f)
                 //.padding(horizontal = 10.dp)
                 //verticalArrangement = Arrangement.Center
             ) {
@@ -115,31 +116,32 @@ fun playerCard(
                     Text(
                         text = player.name,
                         style = MaterialTheme.typography.body1,
+//                         overflow = TextOverflow.Ellipsis, maxLines = 1,
                         modifier = Modifier
-                            .weight(0.5f)
-                            .padding(start = 4.dp)
+                            .weight(1f)
+                            .padding(start = 15.dp, end = 2.dp)
                         // .background(Color.Red)
 
                     )
 
-                    Text(
-                        text = player.points,
-                        style = MaterialTheme.typography.body2,
-                        modifier = Modifier
-                            .weight(0.25f)
-                            // .background(Color.Yellow)
-                            .padding(start = 1.dp)
-                        , textAlign = TextAlign.Start
-                    )
-                    Text(
-                        text = player.salary,
-                        style = MaterialTheme.typography.body2,
-                        modifier = Modifier
-                            .weight(0.25f)
-                        // .background(Color.Magenta)
-                        //.padding(end = 4.dp),
-                        ,textAlign = TextAlign.Center
-                    )
+//                    Text(
+//                        text = player.points,
+//                        style = MaterialTheme.typography.body2,
+//                        modifier = Modifier
+//                            .weight(0.25f)
+//                            // .background(Color.Yellow)
+//                            .padding(start = 1.dp)
+//                        , textAlign = TextAlign.Start
+//                    )
+//                    Text(
+//                        text = player.salary,
+//                        style = MaterialTheme.typography.body2,
+//                        modifier = Modifier
+//                            .weight(0.25f)
+//                        // .background(Color.Magenta)
+//                        //.padding(end = 4.dp),
+//                        ,textAlign = TextAlign.Center
+//                    )
 
                 }
                 Row (
@@ -156,7 +158,7 @@ fun playerCard(
                         text = player.type,
                         style = MaterialTheme.typography.caption,
                         fontSize = 10.sp,
-                        modifier= Modifier.padding(start=1.dp, bottom = 1.dp, end = 4.dp),
+                        modifier= Modifier.padding(start=15.dp, bottom = 2.5.dp, end = 4.dp),
                         textAlign = TextAlign.Center
                     )
                     Row(
@@ -191,11 +193,13 @@ fun playerCard(
                 }
                 // Spacer(modifier = Modifier.padding(bottom = 4.dp))
             }
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(0.12f),
-                verticalArrangement = Arrangement.Center
+                    .weight(0.45f),
+               // verticalArrangement = Arrangement.Center
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
             ) {
 //                Surface(
 //                    modifier = Modifier.size(50.dp),
@@ -209,14 +213,6 @@ fun playerCard(
                 var checked by remember { mutableStateOf(player.isPlayerLocked) }
                 var lockCvc by remember { mutableStateOf(player.isCvcLocked) }
 
-                IconToggleButton(checked = checked, onCheckedChange = {
-                    player.lockPlayer(it)
-                    checked = player.isPlayerLocked //if you update state variable, ui will update, even when it is not used in below block
-                }) {
-                    val tint by animateColorAsState(if (player.isPlayerLocked) Color(0xFFEC407A) else Color(0xFFB0BEC5))
-                    Icon(Icons.Filled.Lock, contentDescription = "Localized description", tint = tint)
-                }
-
                 IconToggleButton(checked = lockCvc, onCheckedChange = {
                     player.lockCvc(it)
                     lockCvc = player.isCvcLocked
@@ -225,20 +221,32 @@ fun playerCard(
                     val tint by animateColorAsState(if (player.isCvcLocked) Color(0xFFEC407A) else Color(0xFFB0BEC5))
                     Icon(Icons.Filled.Favorite, contentDescription = "Localized description", tint = tint)
                 }
-            }
 
-            Column(
-                modifier = Modifier
-                    .weight(0.08f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                //var checked by remember { mutableStateOf(false) }
+                IconToggleButton(checked = checked, onCheckedChange = {
+                    player.lockPlayer(it)
+                    checked = player.isPlayerLocked //if you update state variable, ui will update, even when it is not used in below block
+                }) {
+                    val tint by animateColorAsState(if (player.isPlayerLocked) Color(0xFFEC407A) else Color(0xFFB0BEC5))
+                    Icon(Icons.Filled.Lock, contentDescription = "Localized description", tint = tint)
+                }
 
                 IconButton(onClick = { onPlayerRemoved(player) }) {
                     Icon(Icons.Outlined.Clear, contentDescription = "Localized description", tint = Color(0xFFB0BEC5))
                 }
             }
+
+//            Column(
+//                modifier = Modifier
+//                    .weight(0.08f)
+//                    .fillMaxHeight(),
+//                verticalArrangement = Arrangement.Center
+//            ) {
+//                //var checked by remember { mutableStateOf(false) }
+//
+//                IconButton(onClick = { onPlayerRemoved(player) }) {
+//                    Icon(Icons.Outlined.Clear, contentDescription = "Localized description", tint = Color(0xFFB0BEC5))
+//                }
+//            }
 
         }
     }
@@ -430,35 +438,35 @@ fun myLazyList(
     //val myList = Player().loadPlayers()
     Column {
         Row(Modifier.background(Color(0xFFFAFAFA))) {
-            Spacer(modifier =Modifier.weight(0.35f))
+            Spacer(modifier =Modifier.weight(0.2f))
             Text(
                 text = "Player",
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .weight(0.5f)
-                    .padding(start = 4.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
+                    .weight(0.35f)
+                    .padding(start = 14.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Start
             )
             Text(
-                text = "Points",
+                text = "  C/Vc",
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .weight(0.25f)
+                    .weight(0.15f)
                     .padding(bottom = 8.dp, top = 4.dp) //.background(Color.Yellow)
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Start
             )
             Text(
-                text = "Cost",
+                text = "Lock Player",
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .weight(0.25f)
+                    .weight(0.3f)
                     .padding(bottom = 8.dp, top = 4.dp) //.background(Color.Magenta)
                     .align(Alignment.CenterVertically),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Start
             )
-            Spacer(modifier =Modifier.weight(0.35f))
+//            Spacer(modifier =Modifier.weight(0.35f))
 
         }
         Divider(color = Color.LightGray, thickness = 1.dp)
