@@ -6,6 +6,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.HashMap
 
 class DataSource {
@@ -38,6 +41,8 @@ class DataSource {
 ////                    Log.d(TAG, "$m")
 ////                    Log.d(TAG, "${matches.size}, after m")
                 val d = docs.data
+                val format = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                format.timeZone = TimeZone.getDefault()
                 val matchKeys = d?.keys?.toList()
                 if (matchKeys != null) {
                     for(k in matchKeys){
@@ -45,10 +50,17 @@ class DataSource {
                             val matchMap: Map<String, String> =
                                 d[k] as HashMap<String, String>
                             val m = Match(matchMap["league"],matchMap["teamOne"], matchMap["teamTwo"].toString(),
-                                matchMap["teamOneSC"].toString(),matchMap["teamTwoSC"].toString(),matchMap["startTime"].toString(), matchMap["matchID"]
+                                matchMap["teamOneSC"].toString(),matchMap["teamTwoSC"].toString(),matchMap["startTime"], matchMap["matchID"]
                             )
+//                            println(matchMap["startTime"])
+//                            println(matchMap["league"])
+//                            println(format.parse(matchMap["startTime"]!!) )
 
-                            matches.add(m)
+                            //if(Calendar.getInstance().time >= format.parse(matchMap["startTime"]!!))
+//                            println(Calendar.getInstance().time)
+                            if(format.parse(matchMap["startTime"]!!) >= Calendar.getInstance().time ){
+                                matches.add(m)
+                                }
                         }
 
                     }
