@@ -52,7 +52,7 @@ class PlayerViewModel:ViewModel() {
             selectedPlayers.filter { it.type == "BAT" }.count() <3 -> 5
             selectedPlayers.filter { it.type == "ALL" }.count() <1 -> 6
             selectedPlayers.filter { it.type == "BOWL" }.count() <3 -> 7
-            selectedPlayers.filter { it.isPlayerLocked == true }.count()>11 ->8
+            selectedPlayers.filter { it.isPlayerLocked }.count()>11 ->8
             else -> 1
         }
     }
@@ -63,7 +63,7 @@ class PlayerViewModel:ViewModel() {
         selectedMatch = match
         viewModelScope.launch {
             loading.value = true
-            selectedPlayers.addAll(DataSource().loadPlayers(match.matchID ))
+            selectedPlayers.addAll(DataSource().loadPlayers(match.matchID ).sortedBy { it.team })
             loading.value = false
         }
     }
@@ -84,6 +84,7 @@ class PlayerViewModel:ViewModel() {
             loading.value = true
                 _generatedTeams = Player().random11(list, noOfTeams)
             loading.value = false
+
         }
     }
 

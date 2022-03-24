@@ -25,19 +25,35 @@ class DataSource {
 
 
 
-        ref.get()
+        ref.document("matches").get()
             .addOnSuccessListener { docs ->
-                for (d in docs){
-                    Log.d(TAG, "${d.id} => ${d.data}")
-//                    val m = Match(d["league"].toString(),d["teamOne"].toString(), d["teamTwo"].toString(),
-//                        d["teamOneSC"].toString(),d["teamTwoSC"].toString(),d["startTime"].toString()
-//                    )
-                    val match:Match = d.toObject()
-                    match.matchID = d.id.toString()
-                    matches.add(match)
-//                    Log.d(TAG, "$m")
-//                    Log.d(TAG, "${matches.size}, after m")
+
+//                    Log.d(TAG, "${d.id} => ${d.data}")
+////                    val m = Match(d["league"].toString(),d["teamOne"].toString(), d["teamTwo"].toString(),
+////                        d["teamOneSC"].toString(),d["teamTwoSC"].toString(),d["startTime"].toString()
+////                    )
+//                    val match:Match = d.toObject()
+//                    match.matchID = d.id.toString()
+//                    matches.add(match)
+////                    Log.d(TAG, "$m")
+////                    Log.d(TAG, "${matches.size}, after m")
+                val d = docs.data
+                val matchKeys = d?.keys?.toList()
+                if (matchKeys != null) {
+                    for(k in matchKeys){
+                        if(d[k] != null){
+                            val matchMap: Map<String, String> =
+                                d[k] as HashMap<String, String>
+                            val m = Match(matchMap["league"],matchMap["teamOne"], matchMap["teamTwo"].toString(),
+                                matchMap["teamOneSC"].toString(),matchMap["teamTwoSC"].toString(),matchMap["startTime"].toString(), matchMap["matchID"]
+                            )
+
+                            matches.add(m)
+                        }
+
+                    }
                 }
+
 
             }
             .addOnFailureListener { exception ->
@@ -55,15 +71,20 @@ class DataSource {
     suspend fun loadPlayers(matchId:String):List<Player>{
         var count = 1
         val listOfPlayers = mutableListOf<Player>()
-        ref.document(matchId).collection("Players")
+        ref.document("matches").collection("Players").document(matchId)
             .get().addOnSuccessListener {players->
-                for(p in players) {
-                    while (p[count.toString()] != null) {
+                val playerData = players.data
+                if(playerData != null) {
+                    val playerKeys = playerData.keys
+                    for(p in playerKeys)
+                    {
                         val hashMap: Map<String, String> =
-                            p[count.toString()] as HashMap<String, String>
+                            playerData[p] as HashMap<String, String>
                         listOfPlayers.add(
                             Player(
-                                if(hashMap["name"] != null) {hashMap["name"] } else "",
+                                if (hashMap["name"] != null) {
+                                    hashMap["name"]
+                                } else "",
                                 hashMap["team"],
                                 hashMap["salary"],
                                 hashMap["points"],
@@ -74,9 +95,8 @@ class DataSource {
                         count++
                         Log.d("who is hash", "$hashMap")
                     }
+                    Log.d("who is hash", "$listOfPlayers")
                 }
-
-                Log.d("who is hash", "$listOfPlayers")
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception)
