@@ -63,7 +63,11 @@ class PlayerViewModel:ViewModel() {
         selectedMatch = match
         viewModelScope.launch {
             loading.value = true
-            selectedPlayers.addAll(DataSource().loadPlayers(match.matchID ).sortedBy { it.team })
+            val matches = DataSource().loadPlayers(match.matchID )
+            selectedPlayers.addAll(matches.filter { it.type =="WK" }.sortedBy { it.team })
+            selectedPlayers.addAll(matches.filter { it.type =="BAT" }.sortedBy { it.team })
+            selectedPlayers.addAll(matches.filter { it.type =="ALL" }.sortedBy { it.team })
+            selectedPlayers.addAll(matches.filter { it.type =="BOWL" }.sortedBy { it.team })
             loading.value = false
         }
     }

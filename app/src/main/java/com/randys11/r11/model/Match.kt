@@ -1,5 +1,8 @@
 package com.randys11.r11.model
 
+import com.google.firebase.Timestamp
+import java.sql.Time
+
 data class Match(
     var _league: String?="",
     var _teamOne: String?="",
