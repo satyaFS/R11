@@ -1,7 +1,5 @@
 package com.randys11.r11.model
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -18,10 +16,10 @@ class DataSource {
         val matches = mutableListOf<Match>()
         val som = ref.document("45727").get()
         som.addOnSuccessListener {
-            Log.d(TAG, "${it.data}")
+//            Log.d(TAG, "${it.data}")
         }.
-        addOnFailureListener { exception ->
-            Log.d(TAG, "Error getting documents: ", exception)
+        addOnFailureListener {
+//            Log.d(TAG, "Error getting documents: ", exception)
         }
 
 
@@ -66,13 +64,13 @@ class DataSource {
 
 
             }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
+            .addOnFailureListener {
+//                Log.d(TAG, "Error getting documents: ", exception)
             }
             .await()
 
-        Log.d("who is fast", "${matches.size}")
-        Log.d(TAG, "${matches.size}, after block")
+//        Log.d("who is fast", "${matches.size}")
+//        Log.d(TAG, "${matches.size}, after block")
         // loadPlayers() //comment it
         return matches
     }
@@ -103,13 +101,13 @@ class DataSource {
                             )
                         )
                         count++
-                        Log.d("who is hash", "$hashMap")
+//                        Log.d("who is hash", "$hashMap")
                     }
-                    Log.d("who is hash", "$listOfPlayers")
+//                    Log.d("who is hash", "$listOfPlayers")
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
+            .addOnFailureListener {
+//                Log.d(TAG, "Error getting documents: ", exception)
             }
             .await()
         return  listOfPlayers

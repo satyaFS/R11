@@ -136,7 +136,7 @@ fun ToolbarWidget(viewModel: PlayerViewModel) {
 //                    }
 //                },
                 // below line is use to give background color
-               // backgroundColor = colorResource(id = R.color.purple_200),
+                backgroundColor = MaterialTheme.colors.primary,
 
                 // content color is use to give
                 // color to our content in our toolbar.

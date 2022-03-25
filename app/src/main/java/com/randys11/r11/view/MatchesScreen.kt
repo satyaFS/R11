@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.randys11.r11.model.Match
+import com.randys11.r11.ui.theme.matchCardColor
 
 
 @Composable
@@ -42,7 +43,7 @@ fun MatchCard(match:Match, navController: NavController, loadPlayers:(Match)->Un
                 Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(.20f)
-                    .background(Color(0xFFFAFAFA)),
+                    .background(matchCardColor),
                 Arrangement.Center,
                 Alignment.CenterVertically
 
@@ -109,7 +110,7 @@ fun MatchCard(match: Match){
                 Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(.20f)
-                    .background(Color(0xFFFAFAFA)),
+                    .background(matchCardColor),
                 Arrangement.Center,
                 Alignment.CenterVertically
 

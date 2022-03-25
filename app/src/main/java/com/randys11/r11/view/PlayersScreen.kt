@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
+import com.randys11.r11.ui.theme.matchCardColor
 
 @Composable
 fun PlayerCard(
@@ -42,7 +43,7 @@ fun PlayerCard(
             //.padding(bottom = 5.dp)
             .fillMaxWidth()
             .height(80.dp)
-            .background(Color.White)
+            //.background(Color.White)
         // .border(Dp.Hairline, Color.Gray),
         // border = BorderStroke(0.5.dp, Color.Black)
         // elevation = 0.dp
@@ -257,7 +258,7 @@ fun RemovedPlayerCard(
             //.padding(bottom = 5.dp)
             .fillMaxWidth()
             .height(80.dp)
-            .background(Color.White)
+          //  .background(Color.White)
     )
     {
 
@@ -431,7 +432,7 @@ fun MyLazyList(
     //val myList = Player().Random11(playersList)
     //val myList = Player().loadPlayers()
     Column {
-        Row(Modifier.background(Color(0xFFFAFAFA))) {
+        Row(Modifier.background(matchCardColor)) {
             Spacer(modifier =Modifier.weight(0.2f))
             Text(
                 text = "Player",
@@ -493,7 +494,7 @@ fun RemovePlayersLazyList(
     //val myList = Player().Random11(playersList)
     //val myList = Player().loadPlayers()
     Column {
-        Row(Modifier.background(Color(0xFFFAFAFA)).padding(horizontal = 4.dp)) {
+        Row(Modifier.background(matchCardColor).padding(horizontal = 4.dp)) {
             Spacer(modifier =Modifier.weight(0.32f))
             Text(
                 text = "Player",
@@ -727,7 +728,7 @@ fun PlayersWithTabs(navController: NavController,
     Column(Modifier.fillMaxSize()) {
         MatchCard(match = match)
         Divider(thickness = 1.dp, color = Color.LightGray)
-        TabRow(selectedTabIndex = selectedIndex, backgroundColor = Color.White) {
+        TabRow(selectedTabIndex = selectedIndex, backgroundColor = MaterialTheme.colors.surface) {
             Tab(
                 selected = true,
                 onClick = { selectedIndex = 0 },
