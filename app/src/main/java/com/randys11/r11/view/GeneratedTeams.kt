@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
@@ -24,7 +26,7 @@ import com.randys11.r11.ui.theme.Purple200
 import com.randys11.r11.ui.theme.Purple700
 
 @Composable
-fun GeneratedTeams(generatedTeams:List<Player>, match:Match){
+fun GeneratedTeams(generatedTeams:List<Player>, match:Match, index:Int){
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(500.dp)
@@ -37,7 +39,13 @@ fun GeneratedTeams(generatedTeams:List<Player>, match:Match){
             Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .background(Color(0xFF6300f0)), verticalArrangement = Arrangement.SpaceEvenly) {
+                .background(Color(0xFF6300f0)), verticalArrangement = Arrangement.SpaceAround) {
+            Text(
+                text = "${index +1}",
+                textAlign = TextAlign.Start,
+                color = Color.White,
+                modifier = Modifier.padding(start = 10.dp)
+            )
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 items(items = generatedTeams.filter { it.type=="WK" }.chunked(3)){
                         player->
@@ -227,8 +235,8 @@ fun LazyTeams(list: List<List<Player>>, match: Match){
         .fillMaxWidth()
         .fillMaxHeight(),contentPadding = PaddingValues(1.dp)
     ){
-        items(list){player->
-            GeneratedTeams(player, match)
+        itemsIndexed(list){index,player->
+            GeneratedTeams(player, match, index)
         }
 
     }
