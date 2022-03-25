@@ -277,7 +277,7 @@ fun RemovedPlayerCard(
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(0.2f),
+                    .weight(0.3f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
@@ -306,7 +306,7 @@ fun RemovedPlayerCard(
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(0.6f)
+                    .weight(0.35f)
                 //.padding(horizontal = 10.dp)
                 //verticalArrangement = Arrangement.Center
             ) {
@@ -324,30 +324,30 @@ fun RemovedPlayerCard(
                         text = player.name,
                         style = MaterialTheme.typography.body1,
                         modifier = Modifier
-                            .weight(0.5f)
-                            .padding(start = 4.dp)
-                        // .background(Color.Red)
-
+                            .weight(1f)
+                           // .padding(start = 4.dp),
+                         //.background(Color.Red)
+                         ,textAlign =  TextAlign.Start
                     )
-
-                    Text(
-                        text = player.points,
-                        style = MaterialTheme.typography.body2,
-                        modifier = Modifier
-                            .weight(0.25f)
-                            // .background(Color.Yellow)
-                            .padding(start = 1.dp)
-                        , textAlign = TextAlign.Start
-                    )
-                    Text(
-                        text = player.salary,
-                        style = MaterialTheme.typography.body2,
-                        modifier = Modifier
-                            .weight(0.25f)
-                        // .background(Color.Magenta)
-                        //.padding(end = 4.dp),
-                        ,textAlign = TextAlign.Center
-                    )
+//
+//                    Text(
+//                        text = player.points,
+//                        style = MaterialTheme.typography.body2,
+//                        modifier = Modifier
+//                            .weight(0.25f)
+//                            // .background(Color.Yellow)
+//                            .padding(start = 1.dp)
+//                        , textAlign = TextAlign.Start
+//                    )
+//                    Text(
+//                        text = player.salary,
+//                        style = MaterialTheme.typography.body2,
+//                        modifier = Modifier
+//                            .weight(0.25f)
+//                        // .background(Color.Magenta)
+//                        //.padding(end = 4.dp),
+//                        ,textAlign = TextAlign.Center
+//                    )
 
                 }
                 Row (
@@ -364,7 +364,7 @@ fun RemovedPlayerCard(
                         text = player.type,
                         style = MaterialTheme.typography.caption,
                         fontSize = 10.sp,
-                        modifier= Modifier.padding(start=1.dp, bottom = 1.dp, end = 4.dp),
+                        modifier= Modifier.padding(start=1.dp, bottom = 2.5.dp, end = 4.dp),
                         textAlign = TextAlign.Center
                     )
                     Row(
@@ -499,36 +499,36 @@ fun RemovePlayersLazyList(
     //val myList = Player().Random11(playersList)
     //val myList = Player().loadPlayers()
     Column {
-        Row(Modifier.background(Color(0xFFFAFAFA))) {
-            Spacer(modifier =Modifier.weight(0.35f))
+        Row(Modifier.background(Color(0xFFFAFAFA)).padding(horizontal = 4.dp)) {
+            Spacer(modifier =Modifier.weight(0.32f))
             Text(
                 text = "Player",
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .weight(0.5f)
-                    .padding(start = 4.dp, bottom = 8.dp, top = 4.dp)//.background(Color.Red)
+                    .weight(0.4f)
+                    .padding( bottom = 8.dp, top = 4.dp) //.background(Color.Red)
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Start
             )
+//            Text(
+//                text = "Points",
+//                style = MaterialTheme.typography.caption,
+//                modifier = Modifier
+//                    .weight(0.25f)
+//                    .padding(bottom = 8.dp, top = 4.dp) //.background(Color.Yellow)
+//                    .align(Alignment.CenterVertically),
+//                textAlign = TextAlign.Start
+//            )
             Text(
-                text = "Points",
+                text = "Add ",
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
-                    .weight(0.25f)
-                    .padding(bottom = 8.dp, top = 4.dp) //.background(Color.Yellow)
-                    .align(Alignment.CenterVertically),
-                textAlign = TextAlign.Start
-            )
-            Text(
-                text = "Cost",
-                style = MaterialTheme.typography.caption,
-                modifier = Modifier
-                    .weight(0.25f)
-                    .padding(bottom = 8.dp, top = 4.dp) //.background(Color.Magenta)
+                    .weight(0.2f)
+                    .padding(bottom = 8.dp, top = 4.dp) ///.background(Color.Magenta)
                     .align(Alignment.CenterVertically),
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier =Modifier.weight(0.35f))
+            //Spacer(modifier =Modifier.weight(0.35f))
 
         }
         Divider(color = Color.LightGray, thickness = 1.dp)
