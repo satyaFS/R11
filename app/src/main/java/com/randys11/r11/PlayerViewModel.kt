@@ -8,6 +8,7 @@ import com.randys11.r11.model.DataSource
 import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 class PlayerViewModel:ViewModel() {
     private lateinit var _generatedTeams:List<List<Player>>
@@ -28,9 +29,9 @@ class PlayerViewModel:ViewModel() {
 
         viewModelScope.launch {
             initiaLloading.value = true
-//            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-//            format.parse(it.startTime)?.time
-            list.addAll(DataSource().loadMatches().sortedBy { it.startTime})
+           val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
+            //format.parse(it.startTime)?.time
+            list.addAll(DataSource().loadMatches().sortedBy { format.parse(it.startTime)})
             initiaLloading.value = false
         }
 

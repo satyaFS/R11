@@ -1,5 +1,7 @@
 package com.randys11.r11.model
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -14,15 +16,6 @@ class DataSource {
 
     suspend  fun loadMatches():List<Match>{
         val matches = mutableListOf<Match>()
-        val som = ref.document("45727").get()
-        som.addOnSuccessListener {
-//            Log.d(TAG, "${it.data}")
-        }.
-        addOnFailureListener {
-//            Log.d(TAG, "Error getting documents: ", exception)
-        }
-
-
 
         ref.document("matches").get()
             .addOnSuccessListener { docs ->
@@ -56,7 +49,7 @@ class DataSource {
 //                            println(Calendar.getInstance().time)
                             if(format.parse(matchMap["startTime"]!!)!! >= Calendar.getInstance().time ){
                                 matches.add(m)
-                                }
+                            }
                         }
 
                     }
@@ -65,10 +58,9 @@ class DataSource {
 
             }
             .addOnFailureListener {
-//                Log.d(TAG, "Error getting documents: ", exception)
+                Log.d(TAG, "Error getting documents: ", it)
             }
             .await()
-
 //        Log.d("who is fast", "${matches.size}")
 //        Log.d(TAG, "${matches.size}, after block")
         // loadPlayers() //comment it
