@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.randys11.r11.model
 
 data class Player constructor(
@@ -25,7 +27,7 @@ data class Player constructor(
 
 
 
-    private val possiblePlayer: List<PlayersCombination> = listOf<PlayersCombination>(
+    private val possiblePlayer: List<PlayersCombination> = listOf(
         PlayersCombination(1, 3, 3, 4),
         PlayersCombination(1, 3, 2, 5),
         PlayersCombination(1, 4, 3, 3),
@@ -67,7 +69,7 @@ data class Player constructor(
         val finalTeam = mutableListOf<Player>()
 
 
-        var teamCombinationList = possiblePlayer.filter {
+        val teamCombinationList = possiblePlayer.filter {
             (it.wk <= wkList.count() && it.wk >= wkListFixed) && (it.bat <= batList.count() && it.bat >= batListFixed)
                     && (it.bow <= bowList.count() && it.bow >= bowListFixed) && (it.ar <= arList.count() && it.ar >= arListFixed)
         }
@@ -76,7 +78,7 @@ data class Player constructor(
         var duplicateTeams = 0
         var teamCount = 0
 
-        var totalTeams: MutableList<List<Player>> = mutableListOf<List<Player>>()
+        val totalTeams: MutableList<List<Player>> = mutableListOf()
         while (totalTeams.count() < noOfTeams && duplicateTeams < 30) {
             val selectedCombination = teamCombinationList.random()
             print(selectedCombination)
@@ -100,7 +102,7 @@ data class Player constructor(
             )
             teamCount = finalTeam.filter { it.team == batList[0].team }.count()
 
-            var finalTeamDeepCopy = finalTeam.map { it.copy() }
+            val finalTeamDeepCopy = finalTeam.map { it.copy() }
 
             //Select a captain
             val lockedCap = finalTeamDeepCopy.filter { it.isCvcLocked }.randomOrNull()
@@ -144,7 +146,7 @@ data class Player constructor(
 //        println(selectedCombination.wk)
 
 
-        return totalTeams;
+        return totalTeams
     }
 
     fun removeState(){

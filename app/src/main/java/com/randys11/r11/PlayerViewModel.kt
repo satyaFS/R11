@@ -4,12 +4,10 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.randys11.r11.model.DataSource
 import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 
 class PlayerViewModel:ViewModel() {
     private lateinit var _generatedTeams:List<List<Player>>

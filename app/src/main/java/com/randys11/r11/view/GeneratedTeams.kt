@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -22,8 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
-import com.randys11.r11.ui.theme.Purple200
-import com.randys11.r11.ui.theme.Purple700
 
 @Composable
 fun GeneratedTeams(generatedTeams:List<Player>, match:Match, index:Int){

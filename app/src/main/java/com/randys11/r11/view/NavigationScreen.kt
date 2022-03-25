@@ -1,13 +1,9 @@
 package com.randys11.r11.view
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.randys11.r11.PlayerViewModel
+
 @Composable
 fun Navigation(viewModel: PlayerViewModel, navController: NavHostController){
     NavHost(navController = navController, startDestination = Screen.ListOfMatches.route){
@@ -70,7 +66,7 @@ fun Navigation(viewModel: PlayerViewModel, navController: NavHostController){
 
         }
 
-        composable(route = Screen.ListOfMatches.route, ){
+        composable(route = Screen.ListOfMatches.route){
             if(viewModel.loading.value){
                 Box(modifier = Modifier.fillMaxSize()){
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
