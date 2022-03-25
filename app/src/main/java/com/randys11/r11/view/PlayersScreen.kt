@@ -3,11 +3,9 @@ package com.randys11.r11.view
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -21,14 +19,10 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -36,7 +30,7 @@ import com.randys11.r11.model.Match
 import com.randys11.r11.model.Player
 
 @Composable
-fun playerCard(
+fun PlayerCard(
     player: Player,
     onPlayerRemoved: (Player) -> Unit,
     match: Match
@@ -163,12 +157,12 @@ fun playerCard(
                     )
                     Row(
                         Modifier
-                            .fillMaxWidth(0.5f)
+                           // .fillMaxWidth(0.5f)
                             .wrapContentHeight(),
                         verticalAlignment = Alignment.CenterVertically,
                         //horizontalArrangement = Arrangement.Start
                     ) {
-                        if(player.lastMatch) {
+                        if(player.lastMatch == "1") {
                             RadioButton(
                                 selected = true, onClick = {},
                                 modifier = Modifier
@@ -179,9 +173,9 @@ fun playerCard(
                             )
                             Spacer(modifier = Modifier.padding(end = 4.dp))
                             Text(
-                                text = "Last Match Played",
+                                text = "Played Last Match",
                                 style = MaterialTheme.typography.caption,
-                                fontSize = 7.sp,
+                                fontSize = 8.sp,
                                 modifier = Modifier
                                     .wrapContentHeight()
                                 //.padding(start = 4.dp)
@@ -369,12 +363,12 @@ fun RemovedPlayerCard(
                     )
                     Row(
                         Modifier
-                            .fillMaxWidth(0.5f)
+                            //.fillMaxWidth(0.5f)
                             .wrapContentHeight(),
                         verticalAlignment = Alignment.CenterVertically,
                         //horizontalArrangement = Arrangement.Start
                     ) {
-                        if(player.lastMatch) {
+                        if(player.lastMatch == "1") {
                             RadioButton(
                                 selected = true, onClick = {},
                                 modifier = Modifier
@@ -385,9 +379,9 @@ fun RemovedPlayerCard(
                             )
                             Spacer(modifier = Modifier.padding(end = 4.dp))
                             Text(
-                                text = "Last Match Played",
+                                text = "Played Last Match",
                                 style = MaterialTheme.typography.caption,
-                                fontSize = 7.sp,
+                                fontSize = 8.sp,
                                 modifier = Modifier
                                     .wrapContentHeight()
                                 //.padding(start = 4.dp)
@@ -427,7 +421,7 @@ fun RemovedPlayerCard(
 }
 
 @Composable
-fun myLazyList(
+fun MyLazyList(
     playersList: List<Player>,
     onPlayerRemoved: (Player) -> Unit,
     match: Match
@@ -478,7 +472,7 @@ fun myLazyList(
 
             items( playersList ){
                     player->
-                playerCard(player, onPlayerRemoved, match )
+                PlayerCard(player, onPlayerRemoved, match )
                 Divider(color = Color.LightGray, thickness = 1.dp)
             }
         }
@@ -564,7 +558,7 @@ fun LazyListWithNav(
 
 ){
     val openDialog = rememberSaveable{ mutableStateOf(1) }
-    val localFocusManager = LocalFocusManager.current
+//    val localFocusManager = LocalFocusManager.current
 
 
 
@@ -585,7 +579,7 @@ fun LazyListWithNav(
             .fillMaxWidth()
             .weight(1f)
         ) {
-            myLazyList(players, onPlayerRemoved ,match)
+            MyLazyList(players, onPlayerRemoved ,match)
         }
 
         var numberValue by remember { mutableStateOf(noOfTeams)}

@@ -3,16 +3,14 @@ package com.randys11.r11.model
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
 class DataSource {
-    var db = Firebase.firestore
+    private var db = Firebase.firestore
 
     private val ref = db.collection("Matches")
 
@@ -47,7 +45,7 @@ class DataSource {
                 if (matchKeys != null) {
                     for(k in matchKeys){
                         if(d[k] != null){
-                            val matchMap: Map<String, String> =
+                            val matchMap: HashMap<String, String> =
                                 d[k] as HashMap<String, String>
                             val m = Match(matchMap["league"],matchMap["teamOne"], matchMap["teamTwo"].toString(),
                                 matchMap["teamOneSC"].toString(),matchMap["teamTwoSC"].toString(),matchMap["startTime"], matchMap["matchID"]
@@ -58,7 +56,7 @@ class DataSource {
 
                             //if(Calendar.getInstance().time >= format.parse(matchMap["startTime"]!!))
 //                            println(Calendar.getInstance().time)
-                            if(format.parse(matchMap["startTime"]!!) >= Calendar.getInstance().time ){
+                            if(format.parse(matchMap["startTime"]!!)!! >= Calendar.getInstance().time ){
                                 matches.add(m)
                                 }
                         }
@@ -100,7 +98,7 @@ class DataSource {
                                 hashMap["team"],
                                 hashMap["salary"],
                                 hashMap["points"],
-                                hashMap["lastMatch"].toBoolean(),
+                                hashMap["lastMatch"],
                                 hashMap["type"]
                             )
                         )

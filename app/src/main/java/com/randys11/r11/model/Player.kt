@@ -5,7 +5,7 @@ data class Player constructor(
     private var _team: String? = "",
     private var _salary: String? = "",
     private var _points: String? = "",
-    private var _lastMatch: Boolean? = false,
+    private var _lastMatch: String? = "",
     private var _type: String? = "",
     private var _isPlayerLocked: Boolean? = false,
     private var _isCvcLocked: Boolean? = false,
